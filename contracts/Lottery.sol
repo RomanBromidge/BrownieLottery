@@ -18,6 +18,7 @@ contract Lottery is VRFConsumerBase, Ownable {
         CALCULATING_WINNER
     }
     LOTTERY_STATE public lotteryState;
+    event RequestedRandomness(bytes32 requestId);
 
     // Oracle fee for using Chainlink's VRF to calculate the winner using a random number
     uint256 public fee;
@@ -38,7 +39,7 @@ contract Lottery is VRFConsumerBase, Ownable {
         keyHash = _keyHash;
     }
 
-    function enter() public payable {
+    function enterLottery() public payable {
         // $50 mimumum entry fee
         require(lotteryState == LOTTERY_STATE.OPEN);
         require(
@@ -72,6 +73,7 @@ contract Lottery is VRFConsumerBase, Ownable {
         // Insecure randomness always leads to bad things happening!!! Use a secure randomness solution like Chainlink VRF
         // First the random number is requested from the chainlink VRF, which happens if the contract has enough LINK to pay the fee
         bytes32 requestId = requestRandomness(keyHash, fee);
+        emit RequestedRandomness(requestId);
     }
 
     // Once the chain has created a random number, this function is called to fulfill the request for a random number

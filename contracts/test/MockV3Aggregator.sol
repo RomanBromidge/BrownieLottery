@@ -1,8 +1,8 @@
 // Go to the Chainlink-Mix github repo for more mock examples!
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.6.0;
 
-import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV2V3Interface.sol";
+import "@chainlink/contracts/src/v0.6/interfaces/AggregatorV2V3Interface.sol";
 
 /**
  * @title MockV3Aggregator
